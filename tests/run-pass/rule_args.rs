@@ -1,6 +1,6 @@
 extern crate peg;
 
-peg::parser!( grammar ra() for str {
+peg::parser!( grammar ra() for &str {
     use peg::ParseLiteral;
 
     rule number() -> i64
@@ -28,7 +28,7 @@ peg::parser!( grammar ra() for str {
     pub rule use_complex_args() = complex_args(u32::max(5, 10), [1,1,3,5,8,13].iter().cloned().find(|x| { x % 2 == 0 }))
 
     pub rule lt_arg<'a>() = ""
-    pub rule ty_arg<T>(x: &T) = ""
+    pub rule ty_arg<T>(x: std::marker::PhantomData<T>) = ""
     pub rule ty_arg_bound<T: Copy>(x: T) = ""
     pub rule ty_arg_bound2<'a, T: std::marker::Copy + ?Sized + 'a>(x: T) = ""
 });
